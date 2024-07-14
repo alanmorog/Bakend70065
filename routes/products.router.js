@@ -1,53 +1,11 @@
 const express = require("express")
 const router = express.Router()
+const path = require("path")
+const fs = require("fs")
 
-//arreglo de carrito
-const products = [{
-        id : 1,
-        title: "producto 1 ",
-        description: "Descripcion del producto 1",
-        code : "prod1",
-        price: 100,
-        status: true,
-        stock: 10,
-        cateogy: "categoria1",
-        thumbnails: ""
-    },
-    {
-        id : 2,
-        title: "producto 2 ",
-        description: "Descripcion del producto 2",
-        code : "prod2",
-        price: 100,
-        status: true,
-        stock: 10,
-        cateogy: "categoria2",
-        thumbnails: ""
-    },
-    {
-        id : 3,
-        title: "producto 3 ",
-        description: "Descripcion del producto 3",
-        code : "prod3",
-        price: 100,
-        status: true,
-        stock: 10,
-        cateogy: "categoria3",
-        thumbnails: ""
-    },
-    {
-        id : 4,
-        title: "producto 4 ",
-        description: "Descripcion del producto 4",
-        code : "prod4",
-        price: 100,
-        status: true,
-        stock: 10,
-        cateogy: "categoria4",
-        thumbnails: ""
-    },
 
-]
+const data = fs.readFileSync("products.json", "utf8")
+    const products = JSON.parse(data)
 
 
 
