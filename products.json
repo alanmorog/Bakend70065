@@ -174,5 +174,16 @@
     "stock": "10",
     "category": "categoria3",
     "thumbnails": ""
+  },
+  {
+    "id": 17,
+    "title": "productonuevo2",
+    "description": "description del producto nuevo2",
+    "code": "codigo nuevo2",
+    "price": "2222",
+    "status": "true",
+    "stock": "120",
+    "category": "categoria producto2",
+    "thumbnails": ""
   }
 ]
