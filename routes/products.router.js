@@ -1,23 +1,18 @@
 const express = require("express")
 const router = express.Router()
-
 const fs = require("fs")
 
 
-
-
-
 const data = fs.readFileSync("./products.json", "utf8")
-const products = JSON.parse(data)
-
+let products = JSON.parse(data)
 
 
 //get--------------------------------------------
-router.get("/", (req,res) =>{
+router.get("/products", (req,res) =>{
     res.json(products) //envia al postman todos losproductos del array
 })
 
-router.get("/:pid", (req,res) =>{
+router.get("/products/:pid", (req,res) =>{
     const productId = parseInt(req.params.pid)
     const prod = products.find((p) => p.id  === productId) // busca el prodcuto con el Id especifico
 
@@ -29,7 +24,7 @@ router.get("/:pid", (req,res) =>{
 })
 
 //post------------------------------------------
-router.post("/", (req,res) => {
+router.post("/products", (req,res) => {
     const {title, description, code, price, status, stock, category, thumbnails} = req.body
     let maxId = products.length
     let i = 1
@@ -72,7 +67,7 @@ router.post("/", (req,res) => {
 })
 
  //PUT-------------------------------------------------
-router.put("/:pid", (req,res) =>{
+router.put("/products/:pid", (req,res) =>{
     const idProduct = parseInt(req.params.pid)
     const productUpgrade = products.find((p) => p.id === idProduct)
     const {title, description, code, price, status, stock, category, thumbnails} = req.body
@@ -99,9 +94,10 @@ router.put("/:pid", (req,res) =>{
 })
 
 //DELETE-=-----------------------------------------------
-router.delete("/:pid", (req,res) => {
+router.delete("/products/:pid", (req,res) => {
     const idProduct = parseInt(req.params.pid)
     const productDelete = products.filter((p) => p.id !== idProduct)
+    products = productDelete
     const pushProducts = JSON.stringify(productDelete, null, 2);
     fs.writeFileSync("./products.json", pushProducts)
     res.json({message: "producto eliminado"})
