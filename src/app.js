@@ -4,6 +4,7 @@ import handlebars from "express-handlebars"
 import cartRouter from "./routes/carts.router.js"
 import __dirname from "./utils.js"
 import path from "path"
+import viewsRouter from "./routes/views.router.js"
 
 
 const app = express()
@@ -23,17 +24,9 @@ app.use(express.static(__dirname, + '/public'))
 
 //app.use("/api", cartRouter)
 //app.use("/api", productsRouter)
+app.use("/", viewsRouter)
 
-//.-----------------------------------------------------------------------------
-//Ruta que no deberia estar aca
 
-app.get("/", (req,res) => {
-    let testUser = {
-        name: "Alan",
-        last_name: "Moro"
-    }
-    res.render("layouts/index", testUser)
-})
 
 
 
