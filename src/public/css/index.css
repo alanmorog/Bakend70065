@@ -1,0 +1,27 @@
+.productosHome{
+    display: inline-block;
+    position: relative;
+    background-color: lightsteelblue;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: 5px;
+}  
+
+.productosHome p {
+    font-size: 1em;
+    margin-bottom: 2px;
+}
+
+
+#FormularioProduct {
+    display: inline-block;
+    position: relative;
+    background-color: rgb(247, 142, 93);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: 5px;
+}

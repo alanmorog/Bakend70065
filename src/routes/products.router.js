@@ -2,12 +2,14 @@ import express from "express"
 import fs from "fs"
 
 
+
 const router = express.Router()
 
 
 
 const data = fs.readFileSync("./products.json", "utf8")
 let products = JSON.parse(data)
+
 
 
 //get--------------------------------------------
@@ -28,11 +30,13 @@ router.get("/products/:pid", (req,res) =>{
 
 //post------------------------------------------
 router.post("/products", (req,res) => {
+    console.log(req.body)
     const {title, description, code, price, status, stock, category, thumbnails} = req.body
+    
     let maxId = products.length
     let i = 1
     products.forEach(element => {
-        elementID = parseInt(element.id)
+        let elementID = parseInt(element.id)
         if (elementID > i){
             maxId = i
         }else{
@@ -41,7 +45,7 @@ router.post("/products", (req,res) => {
     });
     let productsReverse = products.toReversed()
     productsReverse.forEach(element => {
-        elementID = parseInt(element.id)
+        let elementID = parseInt(element.id)
         if (elementID == maxId){
             maxId = elementID+1
         }

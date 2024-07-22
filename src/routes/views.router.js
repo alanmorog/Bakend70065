@@ -1,28 +1,27 @@
 import express from "express"
-
+import fs from "fs"
 
 const router = express.Router()
 
-//.-----------------------------------------------------------------------------
+//.----------------------------------------------------------------------------- Server
+//Desde aca tomo los datos variables para presentar en home.handlebars
 
 
-let food = [
-    {name: "Hamburguesa", price:"1000"},
-    {name: "Pizza", price:"2000"},
-    {name: "Lomo", price:"3000"}
-]
+
 
 router.get("/", (req,res) => {
-    let testUser = {
-        name: "Alan",
-        last_name: "Moro",
-        role: "user"
+    let  nombre = {
+        name: "Usuario"
     }
-    res.render("layouts/index", {
-        user: testUser,
-        isAdmin: testUser.role === "admin",
-        food
-    })
+    const data = fs.readFileSync("./products.json", "utf8")
+    let products = JSON.parse(data)
+    res.render("layouts/home", {products, nombre})
+})
+
+
+router.get("/realtimeproducts", (req,res) => {
+    
+    res.render("layouts/realTimeProducts")
 })
 
 
