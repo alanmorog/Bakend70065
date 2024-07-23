@@ -46,11 +46,16 @@ const socketServer = new Server(httpServer)
 
 
 socketServer.on("connection", socket => {
+    console.log("update")
     socketServer.emit("productListServer", products)
 
     socket.on("CargarProduct", info => {
+        console.log(prodOld)
         guardarProducto(info)
+        const data = fs.readFileSync("./products.json", "utf8")
+        let products = JSON.parse(data)
         socketServer.emit("productListServer", products)
-})
+    })  
+    
 })
 
