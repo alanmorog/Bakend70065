@@ -35,8 +35,7 @@ app.use("/", viewsRouter)
 
 const data = fs.readFileSync("./products.json", "utf8")
 let products = JSON.parse(data)
-
-
+let clean
 
 //.-----------------------------------------------------------------------------
 
@@ -50,12 +49,25 @@ socketServer.on("connection", socket => {
     socketServer.emit("productListServer", products)
 
     socket.on("CargarProduct", info => {
-        console.log(prodOld)
         guardarProducto(info)
         const data = fs.readFileSync("./products.json", "utf8")
         let products = JSON.parse(data)
+        socketServer.emit("clean", products)
         socketServer.emit("productListServer", products)
     })  
+
+    socket.on("eliminarProducto", data => {
+        console.log('Remove product:', data);
+        const idProduct = data.id
+        console.log(idProduct)
+        const productDelete = products.filter((p) => p.id !== idProduct)
+        products = productDelete
+        const pushProducts = JSON.stringify(productDelete, null, 2);
+        fs.writeFileSync("./products.json", pushProducts)
+        socketServer.emit("clean", products)
+        socketServer.emit("productListServer", products)
+
+    })
     
 })
 

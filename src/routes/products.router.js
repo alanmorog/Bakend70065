@@ -30,7 +30,6 @@ router.get("/products/:pid", (req,res) =>{
 
 //post------------------------------------------
 router.post("/products", (req,res) => {
-    console.log(req.body)
     const {title, description, code, price, status, stock, category, thumbnails} = req.body
     
     let maxId = products.length
