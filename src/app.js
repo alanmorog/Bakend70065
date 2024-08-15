@@ -7,6 +7,7 @@ import viewsRouter from "./routes/views.router.js"
 import { Server } from "socket.io"
 import fs from "fs"
 import guardarProducto from "./utils/utils.js"
+import mongoose from "mongoose"
 
 
 
@@ -30,13 +31,21 @@ app.use("/", viewsRouter)
 
 
 
-
-
-
 const data = fs.readFileSync("./products.json", "utf8")
 let products = JSON.parse(data)
-let clean
 
+
+//mongoose linkeo de mongo atlas
+const environment = async () => {
+    await mongoose.connect("mongodb+srv://alanmorog:Syncreon23@cluster0.rh6aq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+        .then(() => {
+            console.log("conectado a la base de datos")
+        })
+        .catch(error => {
+            console.error("error al conectar la base de datos", error)
+        })
+}
+environment()
 //.-----------------------------------------------------------------------------
 
 
@@ -54,7 +63,7 @@ socketServer.on("connection", socket => {
         let products = JSON.parse(data)
         socketServer.emit("clean", products)
         socketServer.emit("productListServer", products)
-    })  
+    })
 
     socket.on("eliminarProducto", data => {
         console.log('Remove product:', data);
@@ -68,6 +77,6 @@ socketServer.on("connection", socket => {
         socketServer.emit("productListServer", products)
 
     })
-    
+
 })
 

@@ -1,7 +1,95 @@
-import express from "express"
+import {Router} from "express"
 import fs from "fs"
+import cartModel from "../models/cart.model.js"
+import productModel from "../models/product.model.js"
 
-const router = express.Router()
+const router = Router()
+
+
+//POST
+router.post('/cart/:pid', async (req, res) => {
+
+    let { pid } = req.params;
+
+    try {
+
+        let cart = await cartModel.findOne();
+
+        if (!cart) {
+            cart = new cartModel();
+        }
+
+        const productCart = cart.products.find(p => p.product && p.product.toString() === pid);
+
+        if (productCart) {
+
+            productCart.quantity += 1; 
+
+        } else {
+            cart.products.push({ product: pid, quantity: 1 });
+        }
+
+        await cart.save();
+
+        const product = await productModel.findById(pid);
+        if (product) {
+            if (product.stock > 0) {
+                product.stock -= 1;
+                await product.save();
+            } else {
+                return res.status(400).json({ message: 'Stock insuficiente' });
+            }
+        } else {
+            return res.status(404).json({ message: 'Producto no encontrado' });
+        }
+
+        res.redirect('/c');
+        console.log(productCart);
+    } catch (err) {
+        console.error(err);
+        res.status(404).json({ message: err.message  })
+    }         
+    
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 const data = fs.readFileSync("./carts.json", "utf8")
@@ -88,8 +176,8 @@ router.post("/carts/:cid/product/:pid", (req, res) => {
     }
     if (prodEnCarrito) {
         prodEnCarrito.quantity += quantity
-        if (prodEnCarrito.quantity < 1){
-            res.status(404).json({error: "no puede haber cantidad cero"})
+        if (prodEnCarrito.quantity < 1) {
+            res.status(404).json({ error: "no puede haber cantidad cero" })
             prodEnCarrito.quantity -= quantity
         }
     }
