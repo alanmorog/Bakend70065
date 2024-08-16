@@ -1,62 +1,31 @@
 import {Router} from "express"
 import fs from "fs"
 import cartModel from "../models/cart.model.js"
-import productModel from "../models/product.model.js"
+
 
 const router = Router()
 
 
 //POST
-router.post('/cart/:pid', async (req, res) => {
 
-    let { pid } = req.params;
+router.post("/carts/:cid", async (req, res) => {
+    let cart = await cartModel.find({_id: "66be9e2daa36b244d4719b69"})
+    cart.products.push({product: "66bd5368b4126180ea88e760", quantity: 2 })
+    let result = await cartModel.updateOne({_id: "66be9e2daa36b244d4719b69"}, cart)
+    res.send({ result: "success", payload: result })
+})
 
+
+//GET ID
+router.get("/carts/:cid", async (req, res) => {
     try {
-
-        let cart = await cartModel.findOne();
-
-        if (!cart) {
-            cart = new cartModel();
-        }
-
-        const productCart = cart.products.find(p => p.product && p.product.toString() === pid);
-
-        if (productCart) {
-
-            productCart.quantity += 1; 
-
-        } else {
-            cart.products.push({ product: pid, quantity: 1 });
-        }
-
-        await cart.save();
-
-        const product = await productModel.findById(pid);
-        if (product) {
-            if (product.stock > 0) {
-                product.stock -= 1;
-                await product.save();
-            } else {
-                return res.status(400).json({ message: 'Stock insuficiente' });
-            }
-        } else {
-            return res.status(404).json({ message: 'Producto no encontrado' });
-        }
-
-        res.redirect('/c');
-        console.log(productCart);
-    } catch (err) {
-        console.error(err);
-        res.status(404).json({ message: err.message  })
-    }         
-    
-});
-
-
-
-
-
-
+        let cart = await cartModel.find().populate("products.product")
+        console.log(cart)
+        res.send({ result: "success", payload: cart })
+    } catch (error) {
+        console.error(error)
+    }
+})
 
 
 

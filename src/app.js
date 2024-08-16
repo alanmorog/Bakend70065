@@ -8,6 +8,7 @@ import { Server } from "socket.io"
 import fs from "fs"
 import guardarProducto from "./utils/utils.js"
 import mongoose from "mongoose"
+import cartModel from "./models/cart.model.js"
 
 
 
@@ -44,6 +45,13 @@ const environment = async () => {
         .catch(error => {
             console.error("error al conectar la base de datos", error)
         })
+
+    /* await cartModel.create({
+        products: []
+    }) */
+        /* let cart = await cartModel.findOne({_id: "66be9e2daa36b244d4719b69"})
+        cart.products.push({product: "66bd5368b4126180ea88e760", quantity: 2})
+        let result = await cartModel.updateOne({_id: "66be9e2daa36b244d4719b69"}, cart) */
 }
 environment()
 //.-----------------------------------------------------------------------------
