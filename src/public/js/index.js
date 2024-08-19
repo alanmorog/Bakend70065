@@ -1,35 +1,38 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const buttons = document.querySelectorAll('.addToCartButton');
-    
-    buttons.forEach(button => {
-        button.addEventListener('click', async (event) => {
-            event.preventDefault(); // Evita el comportamiento por defecto del botón
 
-            const productId = button.getAttribute('data-id');
-            const cartId = '66be9e2daa36b244d4719b69'; 
-            
-            // Establecer la cantidad por defecto en 1 si no se especifica
-            const quantityInput = document.querySelector(`#counter-input-${productId}`);
-            const quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
+socket = io()
 
-            try {
-                const response = await fetch(`api/carts/${cartId}/product/${productId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ quantity: quantity }), // Enviar la cantidad calculada
-                });
 
-                if (response.ok) {
-                    alert('Producto agregado al carrito exitosamente!');
-                } else {
-                    alert('Hubo un problema al agregar el producto al carrito.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Hubo un problema al agregar el producto al carrito.');
-            }
-        });
+//Se recibe desde el handlebars la accion de agregar al carrito. Este mismo producto se envia a app.js desde un socket
+
+const addToCartButtons = document.querySelectorAll('.addToCartButton');
+
+addToCartButtons.forEach(button => {
+    button.addEventListener('click', async () => {
+        const productId = button.getAttribute('data-id');
+        try {
+            await socket.emit('addToCart', productId);
+
+            alert('Producto agregado al carrito');
+
+        } catch (error) {
+            console.error(err)
+            res.status(500).json({ error: 'No se puede agregar al carrito', err });
+        }
     });
-})
+});
+
+
+
+const cartId = '66be9e2daa36b244d4719b69';
+
+// Obtener el botón por su ID
+const button = document.getElementById('goToCartButton');
+
+// Agregar un listener al botón para manejar el clic
+button.addEventListener('click', () => {
+    // Redirigir a la ruta deseada
+    window.location.href = `api/carts/${cartId}`;
+});
+
+
+

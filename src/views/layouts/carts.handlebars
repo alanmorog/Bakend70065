@@ -1,0 +1,87 @@
+<!-- Archivo: views/carts.handlebars -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Carrito</title>
+    <style>
+        /* Estilos para el carrito */
+        .cart-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .cart-button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Detalles del Carrito</h1>
+
+    <!-- Botón para ir al carrito -->
+    <a href="/" class="cart-button">Volver al Menu</a>
+
+    <!-- Tabla con la información del carrito -->
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre del Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each cart.products}}
+            <tr>
+                <td>{{this.product.title}}</td>
+                <td>{{this.quantity}}</td>
+                <td>${{this.product.price}}</td>
+                <td><button class="deleteProduct" data-id="{{this.product.id}}">Borrar</button></td>
+            </tr>
+
+            {{/each}}
+        </tbody>
+    </table>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../../public/js/index.js"></script>
+
+
+</body>
+
+
+</html>

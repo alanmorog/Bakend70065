@@ -4,7 +4,7 @@
     background-color: lightsteelblue;
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(173, 51, 51, 0.1);
     width: 300px;
     margin: 5px;
 }  
@@ -18,7 +18,7 @@
 #FormularioProduct {
     display: inline-block;
     position: relative;
-    background-color: rgb(247, 142, 93);
+    background-color: #c2c0a8;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
