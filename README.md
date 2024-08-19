@@ -2,6 +2,41 @@
 
 # Proyecto Final
 
+### Para el proyecto final se realizo:
+- agregado de base datos mongodb atlas para el guardado de la base de datos productos y carrito
+- adaptar el proyecto a la base de data nueva dejando descartado el filesystem y la informacion local para pasar a la nube
+
+![App Screenshot](./assets/screenshots/database01.PNG)
+
+![App Screenshot](./assets/screenshots/database02.PNG)
+
+
+- se agrego el sistema de mongo y mongoose, se utilizo paginate y popualate para el armado del ecommerce
+
+![App Screenshot](./assets/screenshots/cartmodel.PNG)
+
+![App Screenshot](./assets/screenshots/producModel.PNG)
+
+![App Screenshot](./assets/screenshots/carpetas.PNG)
+
+- se realizo filtrado por cantidad de productos categoria y nombre ascendente o descendente
+- se agrego los productos al carrito
+
+
+### todos
+![App Screenshot](./assets/screenshots/productosPage.PNG)
+
+### 3 productos
+
+![App Screenshot](./assets/screenshots/productosPage3.PNG)
+
+### solo prodcutos guitarras
+
+![App Screenshot](./assets/screenshots/productosGuitarras.PNG)
+
+### carrito
+![App Screenshot](./assets/screenshots/carrito.PNG)
+
 ## Pre Entrega 1
 
 Comision:  70065
@@ -80,6 +115,9 @@ https://youtu.be/RcLsz7Aey0E
     ###POST ID
     - se actualiza el carrito antes guardado con un producto nuevo y su cantidad o con un mismo producto y actualiza su cantidad.
 ## Autor
+
+
+
 
 - [Alan Moro](https://github.com/alanmorog)
 
